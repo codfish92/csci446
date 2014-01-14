@@ -1,0 +1,125 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+
+/*This block of comments will point out the specfic sass features
+ *variables: only use 2, mainly because i was often replacing small char words like 5px or blue. did it with spacing since as more content might be added, might want to reduce spacing
+ *Nesting: done primarly on line 38 with the links in div links and with the username and password field for the login form
+  Partials: done with custom font
+  mixins: used it twice to make rounded
+  inhertiance: used on the mainPanel and subPanel class. gives both a border with overwriting background colors
+  operators: used primarly on margin and padding with the default buffer var. this way if the default buffer size is changed, proportions remain the same.
+ */
+
+@import "compass/css3/border-radius";
+@import "customFont";
+
+$defaultBuffer: 5px; //standard amount of px between elements
+$defaultBorderColor: black;
+
+.mainPanel{ //didn't really have a big use for classes in this little set, but gives the right side of the screen a border on each div
+	border: 2px solid $defaultBorderColor;
+	background-color: blue;
+}
+.subPanel{ //the second div on the right screen, inherits the border, but changes the background color, not really a good use of inhertiance, but it does it
+	@extend .mainPanel; //main inherient call
+	background-color: red;
+}
+
+#text{
+	padding: 5*$defaultBuffer; //give the text a little room from the side
+	width:200px; //keep text in box
+}
+
+#links{
+	margin:0px 4*$defaultBuffer $defaultBuffer 500px; //uses an operator to extend default buffer length
+	a{ //nests the links in the header. this way these links are different from links on the clock panel
+		margin:$defaultBuffer;
+		margin-bottom: 4*$defaultBuffer; //operator again
+		border: 2px, solid, $defaultBorderColor;
+		@include border-radius(5px, 5px); //mixin
+		background-color:white;
+	}
+}
+
+
+
+// method for keeping footer at bottom obtained at cssreset.com
+// most code here is from cssreset.com, a couple margin and padding edits thrown in as well
+body{
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+#fullPage{
+	min-height: 100%;
+	position: relative;
+}
+
+#header{
+	margin: $defaultBuffer;
+	background-color:#888888;
+	width:97%;
+	padding: 10px;
+}
+
+
+#body{
+	padding: 10px;
+	padding-bottom: 800px;
+}
+
+#footer{ //"copyright" footer
+	text-align: center;
+	position: absolute;
+	bottom:0;
+	left: 0;
+	width: 100%;
+	height:60px;
+}
+
+#content{ //this is the left panel below header
+	float: left;
+	font-family: "lemonchickenregular"; //where custom font comes in
+	width:50%;
+	background-color: green;
+}
+
+
+#menu{ //contians login form and panel with clocks
+	float: right;
+	width:50%;
+}
+#login{ //panel containing the login form
+	#username{ //more nesting
+		width: 200px;
+	}
+	#password{ //nesting 
+		width: 200px;
+	}
+	#loginButton{ //nesting
+		float: right;
+	}
+}
+
+#clock{ //picture
+	width: 100px;
+	height: 100px;
+}
+
+#otherPanel{ //panel with additonal links and picture of clock
+	width: 90%; // make it 10% smaller than rest of stuff in the menu div
+	margin: $defaultBuffer;
+	margin-left: 2*$defaultBuffer;
+	text-align: center;
+	a{
+		@include border-radius(2px, 2px); //other mixin
+		background-color:white;
+	}
+
+}
+
+
+
