@@ -1,12 +1,11 @@
 <h1>POKEMON Got catch em' all</h1>
-
 <table id="pet_table">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Age</th>
-      <th>Primarytype</th>
-      <th>Secondarytype</th>
+	    <th><%= link_to "Name", :sort=> "name"%></th>
+	    <th><%= link_to "Age", :sort=> "age"%></th>
+	    <th><%= link_to "Primarytype", :sort => "primaryType"%></th>
+	    <th><%= link_to "Secondarytype", :sort => "secondaryType"%></th>
       <th>Image</th>
       <th></th>
       <th></th>

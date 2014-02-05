@@ -4,12 +4,13 @@ class PetsController < ApplicationController
   # GET /pets
   # GET /pets.json
   def index
-    @pets = Pet.all
+    @pets = Pet.order(params[:sort])
   end
 
   # GET /pets/1
   # GET /pets/1.json
   def show
+	  @pet = Pet.find(params[:id])
   end
 
   # GET /pets/new
@@ -19,6 +20,7 @@ class PetsController < ApplicationController
 
   # GET /pets/1/edit
   def edit
+	  @pet = Pet.find(params[:id])
   end
 
   # POST /pets
