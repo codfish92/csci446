@@ -1,0 +1,16 @@
+<% if notice %>
+<p id="notice"><%= notice%></p>
+<%end%>
+<h1>Your pokemon that have been left to fend for themselves in your pc</h1>
+
+<% @pets.each do |pet| %>
+	<div class ="entry">
+		<%= image_tag(pet.image, :class => 'list_image')%>
+		<h3>Pokemon's name: <%= pet.name%></h3>
+		<div class ="ageLine">
+			<span class="age">Age <%= pet.age%> </span>
+			<p>-------</p>
+		</div>
+	</div>
+<%end%>
+

@@ -4,11 +4,23 @@
   <title>Pets</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag "scaffold" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
-
-<%= yield %>
+<body id="foster">
+	<div id="banner">
+		<%= image_tag("/img/logo.png") %>
+		<%= @page_title || "POKEMON" %>
+	</div>
+	<div id = "columns">
+		<div id="side">
+			<a href="http://www.darkgovernment.com">Home</a>
+			<a href="http://www.uncylopedia.com">More sources of info</a>
+		</div>
+		<div id="main">
+			<%= yield %>
+		</div>
+	</div>
 
 </body>
 </html>

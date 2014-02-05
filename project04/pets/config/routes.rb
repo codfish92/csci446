@@ -1,4 +1,5 @@
 Pets::Application.routes.draw do
+  get "foster/index"
   resources :pets
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -6,7 +7,7 @@ Pets::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-
+  root :to =>'foster#index', :as => 'foste'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

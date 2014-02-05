@@ -1,6 +1,6 @@
-<h1>Listing pets</h1>
+<h1>POKEMON Got catch em' all</h1>
 
-<table>
+<table id="pet_table">
   <thead>
     <tr>
       <th>Name</th>
@@ -14,7 +14,7 @@
     </tr>
   </thead>
 
-  <tbody>
+  <tbody> 
     <% @pets.each do |pet| %>
       <tr>
         <td><%= pet.name %></td>
@@ -32,4 +32,4 @@
 
 <br>
 
-<%= link_to 'New Pet', new_pet_path %>
+<%= link_to 'Deposit Pokemon into PC for eternity', new_pet_path %>
