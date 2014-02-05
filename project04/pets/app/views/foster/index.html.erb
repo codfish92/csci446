@@ -11,6 +11,7 @@
 			<span class="age">Age <%= pet.age%> </span>
 			<p>-------</p>
 		</div>
+			<%= button_to 'Agree to foster', line_items_path(:pet_id => pet) %>
 	</div>
 <%end%>
 

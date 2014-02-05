@@ -1,4 +1,8 @@
 Pets::Application.routes.draw do
+  resources :line_items
+
+  resources :carts
+
   get "foster/index"
   resources :pets
 
@@ -7,7 +11,7 @@ Pets::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-  root :to =>'foster#index', :as => 'foste'
+  root :to =>'foster#index', :as => 'foster'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
