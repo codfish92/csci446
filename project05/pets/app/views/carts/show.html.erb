@@ -1,0 +1,9 @@
+<h2>Your PC</h2>
+	<p>You have agreed to take this adorable pocket monster out of the hell that is the poke-center pc and actually have this little fella on you adventures</p>
+<ul>
+	<% @cart.line_items.each do |item| %>
+		<li><%= item.pet.name %> </li>
+		<li><%=image_tag(item.pet.image, :class => 'pet_image') %> </li>
+	<% end %>
+</ul>
+

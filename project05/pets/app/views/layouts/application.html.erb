@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pets</title>
+  <%= stylesheet_link_tag  "depot",  "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag "scaffold" %>
+  <%= csrf_meta_tags %>
+</head>
+<body id="foster">
+	<div id="banner">
+		<%= image_tag("/img/logo.png") %>
+		<%= @page_title || "POKEMON" %>
+	</div>
+	<div id = "columns">
+		<div id="side">
+			<a href="/">Home</a>
+			<a href="/pets">pet database</a>
+		</div>
+		<div id="main">
+			<%= yield %>
+		</div>
+	</div>
+
+</body>
+</html>

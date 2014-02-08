@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: Test
+  age: 50
+  primaryType: fire
+  secondaryType: flying
+  image: /img/splashing.jpg
+
+two:
+  name: geodude
+  age: 3
+  primaryType: rock
+  secondaryType: none
+  image: /img/splashing.jpg
