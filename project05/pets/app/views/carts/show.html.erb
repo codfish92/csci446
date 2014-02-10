@@ -1,9 +1,15 @@
 <h2>Your PC</h2>
 	<p>You have agreed to take this adorable pocket monster out of the hell that is the poke-center pc and actually have this little fella on you adventures</p>
-<ul>
-	<% @cart.line_items.each do |item| %>
-		<li><%= item.pet.name %> </li>
-		<li><%=image_tag(item.pet.image, :class => 'pet_image') %> </li>
-	<% end %>
-</ul>
+<table>
+	<tr id='tableLabel'>
+		<td>Pokemon's name</td>
+		<td>How many of this pokemon you agree to adopt(in reality there would only be one, but for assignment sake)</td>
+		<td>Pokemon's picture</td>
+	</tr>
+	<%= render(@cart.line_items) %>
+</table>
+
+<%= button_to 'Empty PC', @cart, :method => :delete,
+	:confirm => 'Are you sure? These Pocket Monsters are gonna get really sad' %>
+
 

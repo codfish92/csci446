@@ -26,12 +26,12 @@ class LineItemsController < ApplicationController
   def create
 	  @cart = current_cart
 	  pet = Pet.find(params[:pet_id])
-	  @line_item = @cart.line_items.build(:pet => pet)
+	  @line_item = @cart.add_pet(pet.id)
     #@line_item = LineItem.new(line_item_params)
 
     respond_to do |format|
       if @line_item.save
-        format.html { redirect_to(@line_item.cart, :notice => 'Line item was successfully created.') }
+        format.html { redirect_to(@line_item.cart) }
 	format.xml { render :xml => @line_item, :status => :created, :location => @line_item}
         format.json { render action: 'show', status: :created, location: @line_item }
       else

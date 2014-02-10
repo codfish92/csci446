@@ -3,6 +3,16 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .pet_image{
-	max-height: 400px;
-	max-width: 400px;
+	max-height: 200px;
+	max-width: 200px;
 }
+
+#tableLabel td {
+	font: 120% bold;
+}
+
+td{
+	border: 1px solid black;
+}
+
+
