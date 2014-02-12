@@ -10,14 +10,14 @@
 #banner {
 	background: #9c9;
 	padding-top: 10px;
-	padding-bottom: 10px;
+	padding-bottom: 30px;
 	border-bottom: 2px solid;
 	font: small-caps 40px/40px "Times New Roman", serif;
 	color: #282;
 	text-align: center;
 }
 
-#banner img{
+#banner .logo{
 	width: 300px;
 	height: 100px;
 }
@@ -53,4 +53,25 @@
 
 #store .entry form, #store .entry form div{
 	display: inline;
+}
+
+#cart, #cart table{
+	font-size: 1ex;
+	color: white;
+	width: 20%;
+}
+
+#cart table {
+	border-top: 1px dotted #595;
+	border-bottom: 1px dotted #595;
+	margin-bottom:10px;
+}
+
+#cart #sideTable img{
+	max-width: 50px;
+	max-height: 50px;	
+}
+
+#cart #sideTable td{
+	font-size: 3.5ex;
 }

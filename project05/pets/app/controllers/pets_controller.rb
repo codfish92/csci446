@@ -5,6 +5,7 @@ class PetsController < ApplicationController
   # GET /pets.json
   def index
     @pets = Pet.order(params[:sort])
+    @cart = current_cart
   end
 
   # GET /pets/1
@@ -71,6 +72,6 @@ class PetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pet_params
-      params.require(:pet).permit(:name, :age, :primaryType, :secondaryType, :image, :sort)
+      params.require(:pet).permit(:name, :age, :primaryType, :secondaryType, :image, :price)
     end
 end

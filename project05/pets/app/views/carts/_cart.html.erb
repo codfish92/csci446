@@ -1,0 +1,17 @@
+<div class ="cart_title">Your PC</div>
+<table id='sideTable'>
+	<tr>
+		<td>Pokemon's Name</td>
+		<td>Number you're adopting(not really accurate, but they don't make box's of tim allen like they used to)</td>
+		<td>Pokemon's Picture</td>
+		<td>Pokemon's Price(for love..., for two hours, leave the money on the credenza)</td>
+	</tr>
+	<%= render(cart.line_items) %>
+
+	<tr class="total_line">
+		<td colspan ="3">Total Cost</td>
+		<td class="total_cell"><%= number_to_currency(cart.total_price) %></td>
+	</tr>
+</table>
+<%= button_to 'Empty PC', cart, :method => :delete,
+	:confirm => 'Are you sure? These pocket monters are gonna get really sad' %>

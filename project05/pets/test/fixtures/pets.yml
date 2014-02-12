@@ -6,6 +6,7 @@ one:
   primaryType: fire
   secondaryType: flying
   image: /img/splashing.jpg
+  price: 100
 
 two:
   name: geodude
@@ -13,3 +14,4 @@ two:
   primaryType: rock
   secondaryType: none
   image: /img/splashing.jpg
+  price: 200

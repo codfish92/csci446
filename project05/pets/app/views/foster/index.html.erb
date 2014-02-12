@@ -9,9 +9,12 @@
 		<h3>Pokemon's name: <%= pet.name%></h3>
 		<div class ="ageLine">
 			<span class="age">Age <%= pet.age%> </span>
+		</div>
+		<div class="price_line">
+			<span class="price">Price <%=number_to_currency(pet.price)%></span>
+		<%= button_to 'Agree to foster', line_items_path(:pet_id => pet), :remote =>true %>
 			<p>-------</p>
 		</div>
-			<%= button_to 'Agree to foster', line_items_path(:pet_id => pet) %>
 	</div>
 <%end%>
 

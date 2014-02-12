@@ -12,7 +12,8 @@ Pet.create!(
 	:age => 4,
 	:primaryType => "poison",
 	:secondaryType => "none",
-	:image => "/img/ekans.png"
+	:image => "/img/ekans.png",
+	:price => 20.05
 )
 
 Pet.create!(
@@ -20,7 +21,8 @@ Pet.create!(
 	:age => "74",
 	:primaryType => "normal",
 	:secondaryType => "awesome",
-	:image => "/img/eevee.jpg"
+	:image => "/img/eevee.jpg",
+	:price => 100000
 
 )
 
@@ -29,5 +31,6 @@ Pet.create!(
 	:age => "42",
 	:primaryType => "fire",
 	:secondaryType => "none",
-	:image => "/img/splashing.jpg"
+	:image => "/img/splashing.jpg",
+	:price =>5.25
 )

@@ -21,6 +21,7 @@
         <td><%= pet.primaryType %></td>
         <td><%= pet.secondaryType %></td>
 	<td><%= image_tag(pet.image, :class => 'list_image') %></td>
+	<td><%= pet.price %></td>
         <td><%= link_to 'Show', pet %></td>
         <td><%= link_to 'Edit', edit_pet_path(pet) %></td>
         <td><%= link_to 'Destroy', pet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
