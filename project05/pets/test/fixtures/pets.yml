@@ -1,17 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: Test
+  name: "Test"
   age: 50
   primaryType: fire
-  secondaryType: flying
+  secondaryType: none
   image: /img/splashing.jpg
   price: 100
 
 two:
   name: geodude
   age: 3
-  primaryType: rock
+  primaryType: fire
   secondaryType: none
   image: /img/splashing.jpg
   price: 200

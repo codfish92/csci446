@@ -11,16 +11,17 @@ class PetTest < ActiveSupport::TestCase
 	end
 
 def newPet(type, primaryOrSecondary)
+	puts type
 	if primaryOrSecondary == 0 #do primary type
 		Pet.new(:name => "test",
 			:age => 9001,
 			:primaryType => type,
-			:secondaryType => "none",
+			:secondaryType => "grass",
 			:image => "/img/splashing.jpg")
 	else
 		Pet.new(:name => "test",
 			:age => 9001,
-			:primaryType => "fire",
+			:primaryType => "water",
 			:secondaryType => type,
 			:image => "/img/splashing.jpg")
 	end
@@ -29,8 +30,8 @@ def newPet(type, primaryOrSecondary)
 end
 
 	test "pet primary type must have valid values" do
-		good = %w{fire water grass electric poison ground rock ice psychic ghost dark fighting bug steel dragon}
-		bad = %w{whateverTypeIWantFoo, bad, farie}
+		good = %w(fire water grass electric poison ground rock ice psychic ghost dark fighting bug steel dragon)
+		bad = %w(whateverTypeIWantFoo, bad, farie)
 		good.each do |type|
 			assert newPet(type, 0).valid?, "#{type} is not valid"
 		end

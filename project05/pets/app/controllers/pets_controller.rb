@@ -24,6 +24,16 @@ class PetsController < ApplicationController
 	  @pet = Pet.find(params[:id])
   end
 
+
+  def who_bought
+	  @pet = Pet.find(params[:id])
+	  respond_to do |format|
+		  format.atom
+		  format.xml{render :xml => @pet}
+	  end
+  end
+
+
   # POST /pets
   # POST /pets.json
   def create

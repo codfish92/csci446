@@ -14,7 +14,17 @@ class OrdersController < ApplicationController
 
   # GET /orders/new
   def new
+	  @cart = current_cart
+	  if @cart.line_items.empty?
+		  redirect_to foster_url, :notice => "Your don't have any pokemon in reserve"
+		  return
+	  end
+
     @order = Order.new
+    respond_to do |format|
+	    format.html
+	    format.xml { render :xml => @order }
+    end
   end
 
   # GET /orders/1/edit
@@ -25,10 +35,13 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
+    @order.add_line_items_from_cart(current_cart)
 
     respond_to do |format|
       if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
+	      Cart.destroy(session[:cart_id])
+	      session[:cart_id] = nil
+        format.html { redirect_to @order, notice: 'Thank you, your pokemon will arrive shortly.' }
         format.json { render action: 'show', status: :created, location: @order }
       else
         format.html { render action: 'new' }
