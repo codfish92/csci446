@@ -1,0 +1,13 @@
+<% if line_item == @current_item %>
+	<% if not line_item.pet.nil? %>
+		<li id="current_item"><%= line_item.pet.name %> </li>
+		<li id="current_item"><%=image_tag(line_item.pet.image, :class => 'pet_image', size: "50x50") %> </li>
+	<%end%>
+<%else%>
+	<% if not line_item.pet.nil? %>
+		<li><%= line_item.pet.name %> </li>
+		<li><%=image_tag(line_item.pet.image, :class => 'pet_image', size: "50x50") %> </li>
+	<%end%>
+<%end%>
+<%= button_to "Remove this Pokemon", line_item, :method => :delete, :remote => true%>
+

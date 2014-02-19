@@ -26,13 +26,14 @@ class LineItemsController < ApplicationController
   def create
 	  @cart = current_cart
 	  pet = Pet.find(params[:pet_id])
-	  @line_item = @cart.line_items.build(:pet => pet)
+	  @line_item = @cart.add_pet(pet.id)
     #@line_item = LineItem.new(line_item_params)
 
     respond_to do |format|
       if @line_item.save
-        format.html { redirect_to(@line_item.cart, :notice => 'Line item was successfully created.') }
+        format.html { redirect_to(foster_url) }
 	format.xml { render :xml => @line_item, :status => :created, :location => @line_item}
+	format.js {@current_item = @line_item}
         format.json { render action: 'show', status: :created, location: @line_item }
       else
         format.html { render action: 'new' }
@@ -59,9 +60,11 @@ class LineItemsController < ApplicationController
   # DELETE /line_items/1
   # DELETE /line_items/1.json
   def destroy
+	  @cart = current_cart
     @line_item.destroy
     respond_to do |format|
       format.html { redirect_to line_items_url }
+      format.js
       format.json { head :no_content }
     end
   end

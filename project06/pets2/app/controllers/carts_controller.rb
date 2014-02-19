@@ -7,6 +7,8 @@ class CartsController < ApplicationController
     @carts = Cart.all
   end
 
+
+
   # GET /carts/1
   # GET /carts/1.json
   def show
@@ -54,9 +56,11 @@ class CartsController < ApplicationController
   # DELETE /carts/1
   # DELETE /carts/1.json
   def destroy
+	@cart = current_cart
     @cart.destroy
+    session[:cart_id] = nil
     respond_to do |format|
-      format.html { redirect_to carts_url }
+      format.html { redirect_to(foster_url, :notice => 'Your responsiblites are lifted') }
       format.json { head :no_content }
     end
   end

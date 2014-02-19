@@ -4,14 +4,17 @@
 <h1>Your pokemon that have been left to fend for themselves in your pc</h1>
 
 <% @pets.each do |pet| %>
-	<div class ="entry">
-		<%= image_tag(pet.image, :class => 'list_image')%>
-		<h3>Pokemon's name: <%= pet.name%></h3>
-		<div class ="ageLine">
-			<span class="age">Age <%= pet.age%> </span>
-			<p>-------</p>
+	<%if pet.status != "fostered"%>
+		<div class ="entry">
+			<%= link_to(image_tag(pet.image, :class => 'list_image'), line_items_path(:pet_id=>pet), :method=>:post, :remote=>true)%>
+			<h3>Pokemon's name: <%= pet.name%></h3>
+			<div class ="ageLine">
+				<span class="age">Age <%= pet.age%> </span>
+			</div>
+			<%= button_to 'Consider to foster', line_items_path(:pet_id => pet), :remote =>true %>
+				<%= button_to 'View Pet', "#{pets_path}/#{pet.id}", :method => :get %>
+				<hr>
 		</div>
-			<%= button_to 'Agree to foster', line_items_path(:pet_id => pet) %>
-	</div>
+	<%end%>
 <%end%>
 

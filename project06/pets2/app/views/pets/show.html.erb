@@ -22,7 +22,7 @@
 
 <p>
   <strong>Image:</strong>
-  <%= @pet.image %>
+  <%= image_tag(@pet.image) %>
 </p>
 
 <%= link_to 'Edit', edit_pet_path(@pet) %> |
