@@ -3,6 +3,6 @@
 	<p>You have agreed to take this adorable pocket monster out of the hell that is the poke-center pc and actually have this little fella on you adventures</p>
 <ul>
 	<%= render(cart.line_items) %>
-	<%= button_to "Adopt this Pokemon", cart, :class => 'cartButtons'%>
+	<%= button_to "Adopt this/these Pokemon", new_foster_parent_path, :method => :get %>
 	<%= button_to 'Decide that you have too many other important things to do than make some pokemon happy', cart, :method => :delete, :confirm => 'Are you really sure', :class => 'cartButtons' %>
 </ul>

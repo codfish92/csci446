@@ -1,0 +1,19 @@
+chapter 18:
+1.rake log:clear
+rake tmp:clear
+
+
+2. Started GET "/pets/1" for 127.0.0.1 at 2014-02-04 14:52:08 -0700
+Processing by PetsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mPet Load (0.5ms)[0m  SELECT "pets".* FROM "pets" WHERE "pets"."id" = ? LIMIT 1  [["id", "1"]]
+  Rendered pets/show.html.erb within layouts/application (3.5ms)
+Completed 200 OK in 31ms (Views: 23.8ms | ActiveRecord: 0.5ms)
+
+3. the second or plural one is more correct because tables should end with pluars. 
+
+4. rails uses the /lib folder, and the config script loads a lot of these things. 
+
+active record
+1. the products table is based of a primary key. The orders table is another that is based off of fields.
+2. take! will raise a record not found error if there are no errors, take will not
