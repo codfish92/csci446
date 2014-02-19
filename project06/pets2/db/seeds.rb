@@ -13,6 +13,7 @@ Pet.create!(
 	:primaryType => "poison",
 	:secondaryType => "none",
 	:image => "/img/ekans.png"
+	:status => "available"
 )
 
 Pet.create!(
@@ -21,6 +22,7 @@ Pet.create!(
 	:primaryType => "normal",
 	:secondaryType => "awesome",
 	:image => "/img/eevee.jpg"
+	:status => "available"
 
 )
 
@@ -30,4 +32,5 @@ Pet.create!(
 	:primaryType => "fire",
 	:secondaryType => "none",
 	:image => "/img/splashing.jpg"
+	:status => "available"
 )
