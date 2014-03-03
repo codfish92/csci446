@@ -1,0 +1,15 @@
+h1 {
+  color: blue;
+}
+#rack{
+	color: red;
+}
+#bookTable{
+	border: 1px solid black;
+}
+#bookTable tr td{
+	border: 1px solid black;
+}
+footer{
+	font-size: 10px;
+}
