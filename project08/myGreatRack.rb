@@ -1,9 +1,9 @@
 #!/usr/bin/ruby
 
-
+#i require a good rack
 require 'rack'
 
-
+#define a book class so data can be easily grouped
 class Book
 	def initialize(bookName, bookAuthor, bookLanguage, bookDate, bookCopies, bookRank)
 		@name = bookName
@@ -13,6 +13,7 @@ class Book
 		@copies = bookCopies
 		@rank = bookRank
 	end
+	#accessors for each instance var
 	def name()
 		@name
 	end
@@ -37,7 +38,7 @@ end
 class MyGreatRack 
 	@books = []
 	def initialize()
-		#set up vars for other funcs
+		#set up book array for sort function
 		bookfile = File.open("books.txt", "r")
 		lines = bookfile.readlines()
 		#i know this isn't quite the ruby way, but i didn't want any hicups when i was coding
@@ -63,14 +64,18 @@ class MyGreatRack
 			sortBooks(request, response, request["searchParam"]) #could just use request, but this is easier for me to read
 		else
 			case env["PATH_INFO"]
+				#load any css file
 				when /.*?\.css/
 					#serve up a css file
 					file = env["PATH_INFO"][1..-1]
 					return [200, {"Content-Type" => "text/css"}, [File.open(file, "rb").read]]
+				#when you go to they page without any extension ie 127.0.0.1:8080/
 				when /\//
 					File.open("search.html", "r") { |form| response.write(form.read)}
+				#for testing only, if you go to localhost:8080/test you should see all the books
 				when /\/test.*/
 					displayBooks(request, response)
+				#something is very wrong
 				else
 					[404, {"Content-Type" => "text/plain"}, ["Error 404 ( . Y . )"]]
 				end
@@ -81,8 +86,8 @@ class MyGreatRack
 		response.finish
 	end	
 
+	#test function, left it in just cuz
 	def displayBooks(request, response)
-		book = Book.new("testName", "tim allen", "english", 145, 200, 1)
 		getBooks().sort{ |x, y| x.name <=> y.name }.each {|book| response.write( "#{book.name}, #{book.author}, #{book.language}, #{book.date}, #{book.copies}, #{book.rank}<br>")}
 	end
 	def sortBooks(request, response, param)
@@ -104,8 +109,9 @@ class MyGreatRack
 			#sort by date
 			getBooks().sort{ |x, y| x.date <=> y.date}.each {|book| response.write("<tr><td>#{book.name}</td><td>#{book.author}</td><td>#{book.language}</td><td>#{book.date}</td><td>#{book.copies}</td><td>#{book.rank}</td></tr>")}
 		elsif param == "copies"
-			#sort by copies
-			getBooks().sort{ |x, y| x.copies <=> y.copies}.each {|book| response.write("<tr><td>#{book.name}</td><td>#{book.author}</td><td>#{book.language}</td><td>#{book.date}</td><td>#{book.copies}</td><td>#{book.rank}</td></tr>")}
+			#sort by copies 
+			getBooks().sort{ |x, y| x.copies.split(' ')[0].to_i <=> y.copies.split(' ')[0].to_i}.each {|book| response.write("<tr><td>#{book.name}</td><td>#{book.author}</td><td>#{book.language}</td><td>#{book.date}</td><td>#{book.copies}</td><td>#{book.rank}</td></tr>")}
+			#could just reverse the list by rank and that would be good, but why do that when this is so much more complicated
 		else
 			#this should never happen, lets you know something is wrong
 			response.write("<tr><td>Something aint right</td></tr>")
@@ -114,17 +120,17 @@ class MyGreatRack
 		response.write("</table>") 
 	end
 
-
+	#accesor of instance var
 	def getBooks()
 		return @books
 	end
 
 end
 
-
+#if you don't include this, you can't ctrl-c webrick
 Signal.trap('INT') {
 	Rack::Handler::WEBrick.shutdown
 }
-
+#run on localhost with the port 8080.
 Rack::Handler::WEBrick.run MyGreatRack.new, :Port => 8080
 
