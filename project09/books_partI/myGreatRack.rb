@@ -3,6 +3,9 @@
 #i require a good rack
 require 'rack'
 
+require 'sqlite3'
+require 'erb'
+
 #define a book class so data can be easily grouped
 class Book
 	def initialize(bookName, bookAuthor, bookLanguage, bookDate, bookCopies, bookRank)
@@ -14,7 +17,7 @@ class Book
 		@rank = bookRank
 	end
 	#accessors for each instance var
-	def name()
+	def title()
 		@name
 	end
 	def author()
@@ -35,25 +38,39 @@ class Book
 
 end
 
-class MyGreatRack 
-	@books = []
-	def initialize()
-		#set up book array for sort function
-		bookfile = File.open("books.txt", "r")
-		lines = bookfile.readlines()
-		#i know this isn't quite the ruby way, but i didn't want any hicups when i was coding
-		i= 0
-		while i< lines.count-1
-			data = lines[i].split(',')
-			if @books == nil
-				@books = [Book.new(data[0], data[1], data[2], data[3], data[4], i+1)]
-			else
-				@books.push(Book.new(data[0], data[1], data[2], data[3], data[4], i+1))
-			end
-			i +=1
-		end
-		bookfile.close()
+class BookList
+	attr_accessor :book
+
+	def initialize(books, search)
+		@books = books
+		@search = search
 	end
+
+	def render()
+		renderer.result(binding)
+	end
+	def get_binding() 
+		binding
+	end
+
+
+end
+
+class MyGreatRack 
+
+
+	def initialize()
+		@bookList = []
+		#set up book array for sort function
+		db = SQLite3::Database.new("books.sqlite3.db")
+		rows = db.execute("select * from Books") do  |row| 
+			@bookList.push(Book.new(row[1], row[2], row[3], row[4], row[5], row[0]))
+		end
+
+
+
+	end
+
 	
 	def call(env)
 		request = Rack::Request.new(env)
@@ -61,6 +78,7 @@ class MyGreatRack
 		#include header on every page
 		File.open("header.html", "r") { |head| response.write(head.read) }
 		if request.post? #if you have post data, present table by search param
+			@list = BookList.new(@bookList, request["searchParam"])
 			sortBooks(request, response, request["searchParam"]) #could just use request, but this is easier for me to read
 		else
 			case env["PATH_INFO"]
@@ -71,9 +89,11 @@ class MyGreatRack
 					return [200, {"Content-Type" => "text/css"}, [File.open(file, "rb").read]]
 				#when you go to they page without any extension ie 127.0.0.1:8080/
 				when /\//
-					File.open("search.html", "r") { |form| response.write(form.read)}
+					derp = ERB.new(File.read("search.html.erb"))
+					response.write(derp.result())
 				#for testing only, if you go to localhost:8080/test you should see all the books
-				when /\/test.*/
+				when /\/test/
+					@list = BookList.new(@bookList)
 					displayBooks(request, response)
 				#something is very wrong
 				else
@@ -88,41 +108,18 @@ class MyGreatRack
 
 	#test function, left it in just cuz
 	def displayBooks(request, response)
-		getBooks().sort{ |x, y| x.name <=> y.name }.each {|book| response.write( "#{book.name}, #{book.author}, #{book.language}, #{book.date}, #{book.copies}, #{book.rank}<br>")}
+		renderer = ERB.new(File.read("list.html.erb"))
+		response.write("<h1>Testing!!!</h1>")
+		response.write(renderer.result(@list.get_binding))
 	end
 	def sortBooks(request, response, param)
-		#write the first part of table
-		response.write("<table id='bookTable'><tr><td>Title</td><td>Author</td><td>Language</td><td>Publish Date</td><td>Copies Sold</td><td>Rank</td></tr>")
-		if param == "rank"
-			#@books should have written in sorted by rank, no need to do any sort
-			getBooks().each {|book| response.write("<tr><td>#{book.name}</td><td>#{book.author}</td><td>#{book.language}</td><td>#{book.date}</td><td>#{book.copies}</td><td>#{book.rank}</td></tr>")}
-		elsif param == "title"
-			#sort by title
-			getBooks().sort{ |x, y| x.name <=> y.name }.each {|book| response.write("<tr><td>#{book.name}</td><td>#{book.author}</td><td>#{book.language}</td><td>#{book.date}</td><td>#{book.copies}</td><td>#{book.rank}</td></tr>")}
-		elsif param == "author"
-			#sort by name
-			getBooks().sort{ |x, y| x.author <=> y.author}.each {|book| response.write("<tr><td>#{book.name}</td><td>#{book.author}</td><td>#{book.language}</td><td>#{book.date}</td><td>#{book.copies}</td><td>#{book.rank}</td></tr>")}
-		elsif param == "language"
-			#sort by language
-			getBooks().sort{ |x, y| x.language <=> y.language}.each {|book| response.write("<tr><td>#{book.name}</td><td>#{book.author}</td><td>#{book.language}</td><td>#{book.date}</td><td>#{book.copies}</td><td>#{book.rank}</td></tr>")}
-		elsif param == "date"
-			#sort by date
-			getBooks().sort{ |x, y| x.date <=> y.date}.each {|book| response.write("<tr><td>#{book.name}</td><td>#{book.author}</td><td>#{book.language}</td><td>#{book.date}</td><td>#{book.copies}</td><td>#{book.rank}</td></tr>")}
-		elsif param == "copies"
-			#sort by copies 
-			getBooks().sort{ |x, y| x.copies.split(' ')[0].to_i <=> y.copies.split(' ')[0].to_i}.each {|book| response.write("<tr><td>#{book.name}</td><td>#{book.author}</td><td>#{book.language}</td><td>#{book.date}</td><td>#{book.copies}</td><td>#{book.rank}</td></tr>")}
-			#could just reverse the list by rank and that would be good, but why do that when this is so much more complicated
-		else
-			#this should never happen, lets you know something is wrong
-			response.write("<tr><td>Something aint right</td></tr>")
-		end
-		#close the table
-		response.write("</table>") 
+		renderer = ERB.new(File.read("list.html.erb"))
+		response.write(renderer.result(@list.get_binding))
 	end
 
 	#accesor of instance var
 	def getBooks()
-		return @books
+		return @bookList
 	end
 
 end

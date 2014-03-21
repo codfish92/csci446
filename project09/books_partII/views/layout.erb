@@ -1,0 +1,24 @@
+<h1>Welcome to Sinatra, which doesn't let me make really easy ascii art anymore :(</h1>
+<link rel="stylesheet" type="text/css" href="/stylesheets/book_style.css">
+
+<form name="form" id="form" method="post">
+	Please select a paramater to sort by<select size=1 id="searchParam" name="searchParam">
+		<option value="title">Title</option>
+		<option value="author">Author</option>
+		<option value="language">Language</option>
+		<option value="published">Publish Date</option>
+		<option value="id">Rank</option>
+	</select>
+	<input type="submit" id="submit" value="Search">
+</form>
+
+<div id="main">
+	<%= yield %>
+</div>
+
+<footer>
+<p><small>This is a sinatra app.</small></p>
+</footer>
+
+
+
